@@ -1,14 +1,14 @@
 import React from "react";
-import { getPosts, setTitle } from "./stackoverflow.actions";
+import { getPosts, setTitle, setOption } from "./stackoverflow.actions";
 import { useSelector, useDispatch } from "react-redux";
 
 function Stackoverflow() {
   const dispatch = useDispatch();
-  const { posts, title } = useSelector((state) => state.stackoverflow);
+  const { items, title, option } = useSelector((state) => state.stackoverflow);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(getPosts(title));
+    dispatch(getPosts(title, option));
   };
   return (
     <>
@@ -19,12 +19,22 @@ function Stackoverflow() {
           value={title}
           onChange={(e) => dispatch(setTitle(e.target.value))}
         />
+        <select
+          name="sort"
+          value={option}
+          onChange={(e) => dispatch(setOption(e.target.value))}
+        >
+          <option value="activity">activity</option>
+          <option value="votes">votes</option>
+        </select>
         <button type="submit">Search</button>
       </form>
       <div>
         <ul>
-          {posts.map((post, index) => (
-            <li key={index}>{post}</li>
+          {items.map((post, index) => (
+            <li key={index}>
+              <a href={post.link}>{post.title}</a>
+            </li>
           ))}
         </ul>
       </div>

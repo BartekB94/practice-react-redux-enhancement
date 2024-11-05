@@ -1,8 +1,10 @@
 class StackoverflowApi {
-  url = "https://api.stackexchange.com/2.3/similar?order=desc&sort=activity";
+  url = "https://api.stackexchange.com/";
 
-  fetchPosts(title) {
-    return fetch(`${this.url}&title=${title}site=stackoverflow`)
+  fetchPosts(title, option) {
+    return fetch(
+      `${this.url}2.3/similar?order=desc&sort=${option}&title=${title}&site=stackoverflow`
+    )
       .then(this.handleErrors)
       .then((resp) => resp.json());
   }

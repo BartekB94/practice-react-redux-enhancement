@@ -39,7 +39,9 @@ function Github() {
                 : name.name.toLowerCase().includes(searchQuery);
             })
             .map((repo) => (
-              <li key={repo.id}>{repo.name}</li>
+              <li key={repo.id}>
+                <a href={repo.html_url}>{repo.name}</a>
+              </li>
             ))}
         </ul>
       </div>

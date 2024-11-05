@@ -25,13 +25,13 @@ export const setSearchQuery = (searchQuery) => {
 };
 
 export const getRepositories = (username) => (dispatch) => {
-  dispatch(setRepositories([]));
   api
     .getRepos(username)
     .then((data) => {
       dispatch(setRepositories(data));
     })
     .catch((error) => {
+      dispatch(setRepositories([]));
       console.error(error);
     });
 };

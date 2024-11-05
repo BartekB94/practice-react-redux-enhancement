@@ -17,10 +17,19 @@ export const setTitle = (title) => {
   };
 };
 
-export const getPosts = (title) => (dispatch) => {
-  dispatch(addPosts([]));
+export const setOption = (option) => {
+  return {
+    type: types.SET_OPTION,
+    payload: option,
+  };
+};
+
+export const getPosts = (title, option) => (dispatch) => {
   api
-    .fetchPosts(title)
-    .then((data) => dispatch(addPosts(data)))
-    .catch((error) => console.error(error));
+    .fetchPosts(title, option)
+    .then((data) => dispatch(addPosts(data.items)))
+    .catch((error) => {
+      dispatch(addPosts([]));
+      console.error(error);
+    });
 };
